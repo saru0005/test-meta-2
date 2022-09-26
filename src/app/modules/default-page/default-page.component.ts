@@ -1,5 +1,6 @@
-import {Component, OnInit, Optional} from '@angular/core';
-import {MetadataService} from '../../metadata.service';
+import { Component, OnInit, Optional } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
+import { MetadataService } from '../../metadata.service';
 
 @Component({
   selector: 'app-default-page',
@@ -7,16 +8,15 @@ import {MetadataService} from '../../metadata.service';
   styleUrls: ['./default-page.component.scss']
 })
 export class DefaultPageComponent implements OnInit {
-
-  constructor(@Optional() private metadataService: MetadataService) { }
+  pageTitle = 'This is Universal Page';
+  constructor(private title: Title,
+    private meta: Meta) { }
 
   ngOnInit(): void {
-    if (this.metadataService) {
-      this.metadataService.updateMetadata({
-        title: 'Default Page',
-        description: 'There is some content on Default Page'
-      });
-    }
+    this.title.setTitle(this.pageTitle);
+    this.meta.updateTag(
+      { name: 'description', content: 'This is universal desciption here!' }
+    );
   }
 
 }
